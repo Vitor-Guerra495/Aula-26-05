@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verifica Aprovação</title>
+    <script>
+        window.onload = inicio;
+
+        function inicio() {
+            let botao = document.getElementById('botaoVerificar');
+            botao.addEventListener('click', verificaAprovacao);
+        }
+
+        function verificaAprovacao() {
+            let inputNota = document.getElementById('notaAluno');
+            let txtSaida = document.getElementById('resultado');
+
+            let notaStr = inputNota.value;
+            let nota = parseFloat(notaStr);
+
+            txtSaida.value = "";
+
+            if (nota >= 6) {
+                txtSaida.value = "Fulano, Aprovado!";
+            } else {
+                txtSaida.value = "Fulano, Reprovado.";
+            }
+        }
+    </script>
+</head>
+<body>
+    <label for="notaAluno">Nota do Aluno:</label><br>
+    <input type="number" id="notaAluno" step="0.1"><br><br> 
+    <input type="button" id="botaoVerificar" value="Verificar Situação">
+    <br><br>
+
+    <label for="resultado">Resultado:</label><br>
+    <input type="text" id="resultado" readonly><br> </body>
+</html>

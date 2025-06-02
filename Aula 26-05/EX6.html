@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cálculo de Salário Semanal</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const btnCalcular = document.getElementById('btnCalcular');
+            const nomeInput = document.getElementById('nomeVendedor');
+            const salarioBaseInput = document.getElementById('salarioBase');
+            const vendasDiaInput = document.getElementById('vendasDia');
+            const resultadoDiv = document.getElementById('resultado');
+
+            btnCalcular.addEventListener('click', function() {
+                resultadoDiv.innerHTML = '';
+
+                const nome = nomeInput.value;
+                const salarioBaseStr = salarioBaseInput.value;
+                const vendasDiaStr = vendasDiaInput.value;
+
+                if (!nome || !salarioBaseStr || !vendasDiaStr) {
+                    resultadoDiv.textContent = 'Preencha todos os campos.';
+                    return;
+                }
+
+                const salarioBase = parseFloat(salarioBaseStr);
+                const vendasDia = parseFloat(vendasDiaStr);
+
+                if (isNaN(salarioBase) || isNaN(vendasDia) || salarioBase < 0 || vendasDia < 0) {
+                    resultadoDiv.textContent = 'Salário e vendas devem ser números positivos.';
+                    return;
+                }
+
+                const comissaoDiaria = vendasDia * 0.05;
+                
+                let output = "Vendedor: " + nome + "\n";
+                output += "Salário Base Semanal: R$ " + salarioBase.toFixed(2) + "\n";
+                output += "Vendas Diárias: R$ " + vendasDia.toFixed(2) + "\n";
+                output += "Comissão Diária (5%): R$ " + comissaoDiaria.toFixed(2) + "\n\n";
+                output += "Projeção Semanal (5 dias):\n";
+
+                for (let dia = 1; dia <= 5; dia++) {
+                    let salarioAcumuladoComComissao = salarioBase + (comissaoDiaria * dia);
+                    output += "Total " + dia + " dia(s): R$ " + salarioAcumuladoComComissao.toFixed(2) + "\n";
+                }
+                
+                resultadoDiv.innerHTML = output.replace(/\n/g, '<br>');
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <h1>Cálculo de Salário Semanal do Vendedor</h1>
+
+    <label for="nomeVendedor">Nome do Vendedor:</label>
+    <input type="text" id="nomeVendedor">
+    <br><br>
+
+    <label for="salarioBase">Salário Base Semanal (R$):</label>
+    <input type="number" id="salarioBase">
+    <br><br>
+
+    <label for="vendasDia">Vendas do Dia (R$):</label>
+    <input type="number" id="vendasDia">
+    <br><br>
+
+    <input type="button" id="btnCalcular" value="Calcular Salário da Semana">
+    <br><br>
+
+    <div id="resultado">
+        </div>
+
+</body>
+</html>
