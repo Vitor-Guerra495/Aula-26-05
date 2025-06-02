@@ -13,27 +13,41 @@
         }
 
         function verificaAprovacao() {
+            let inputNome = document.getElementById('nomeAluno');
             let inputNota = document.getElementById('notaAluno');
             let txtSaida = document.getElementById('resultado');
 
+            let nome = inputNome.value;
             let notaStr = inputNota.value;
-            let nota = parseFloat(notaStr);
+            let nota = parseFloat(notaStr); 
 
-            txtSaida.value = "";
+            if (nome.trim() === "") {
+                txtSaida.value = "Por favor, insira o nome do aluno.";
+                return;
+            }
 
+           
+            if (isNaN(nota)) {
+                txtSaida.value = "Por favor, insira uma nota válida.";
+                return;
+            }
+
+            
             if (nota >= 6) {
-                txtSaida.value = "Fulano, Aprovado!";
+                txtSaida.value = nome + ", Aprovado!";
             } else {
-                txtSaida.value = "Fulano, Reprovado.";
+                txtSaida.value = nome + ", Reprovado.";
             }
         }
     </script>
 </head>
 <body>
+    <label for="nomeAluno">Nome do Aluno:</label><br>
+    <input type="text" id="nomeAluno"><br><br>
+
     <label for="notaAluno">Nota do Aluno:</label><br>
     <input type="number" id="notaAluno" step="0.1"><br><br> 
-    <input type="button" id="botaoVerificar" value="Verificar Situação">
-    <br><br>
+    <input type="button" id="botaoVerificar" value="Verificar Situação"> <br><br>
 
     <label for="resultado">Resultado:</label><br>
     <input type="text" id="resultado" readonly><br> </body>
